@@ -1,0 +1,53 @@
+ <div style="text-align:center;">
+      <h1>View Products</h1>
+
+      <div class="table-responsive">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search">
+            <script>
+                function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+            </script>
+            <table class="table" id="myTable" style="border:5px solid rgba(220,230,242,1);" *ngIf="products">
+          <tr style="background-color:rgba(220,230,242,1); font-size:12pt">
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Category Id</th>
+            <th>Price</th>
+            <th>Quantity Available</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngFor="let product of products" style="background-color:white; font-size:10pt">
+            <td>{{product.productId }}</td>
+            <td>{{product.productName}}</td>
+            <td>{{product.categoryId}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.quantityAvailable}}</td>
+            <td><button title="Add to cart">Add to Cart</button></td>
+          </tr>
+        </table>
+      </div>
+      <div *ngIf="showMsgDiv" style="text-align: center;">
+        <h4 class="jumbotron" style="text-align:center;">No products available</h4>
+      </div>
+    </div>
+     
+    
